@@ -38,6 +38,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
     implementation 'com.google.firebase:firebase-analytics'
+    //add firebase-database for database reference: CODE DATABASE, copy above line and edit to add
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.github.rey5137:material:1.3.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
 
 apply plugin: 'com.android.application'
