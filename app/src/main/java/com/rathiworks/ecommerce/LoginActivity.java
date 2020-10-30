@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,22 +69,36 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void allowAccess(String number, String password){
+    public void allowAccess(String phone, String password){
         final DatabaseReference rootReference;
         rootReference = FirebaseDatabase.getInstance().getReference();
 
         rootReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(parentDbName).child(number).exists()){
-                    Users userData = snapshot.child(parentDbName).child(number).getValue(Users.class);
+                Log.d("Does it exist", String.valueOf(snapshot.child(parentDbName).child(phone).exists()));
+                if(snapshot.child(parentDbName).child(phone).exists()){
+                    Users userData = snapshot.child("Users").child(phone).getValue(Users.class);
 
-                    if(userData.getPhone().equals(number)){
+                    Log.d("phone number ok: " , String.valueOf(userData.getPhone().equals(phone)));
+                    if(userData.getPhone().equals(phone)){
+                        Log.d("password ok: " , String.valueOf(userData.getPassword().equals(password)));
                         if(userData.getPassword().equals(password)){
+                            Log.d("Hi", " in for auth");
                             Toast.makeText(LoginActivity.this, "Logged In successfully", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
 
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        }
+
+                        else {
+                            Log.d("Given Password: " ,password);
+                            Log.d("user password: ", userData.getPassword());
+                            Log.d("checking equality:", String.valueOf(password.equals(userData.getPassword())));
+                            Toast.makeText(LoginActivity.this, "Enter the correct details", Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
+                            Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                             startActivity(intent);
                         }
                     }
