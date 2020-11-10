@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //for admins
+        //for admins --> Created manually in Firebase Database Console
         adminPanelLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
