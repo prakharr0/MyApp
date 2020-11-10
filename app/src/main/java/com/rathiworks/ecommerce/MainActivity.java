@@ -89,11 +89,22 @@ public class MainActivity extends AppCompatActivity {
                     if (userData.getPhone().equals(phone)) {
 
                         if (userData.getPassword().equals(password)) {
-                            Toast.makeText(MainActivity.this, "Logged In successfully", Toast.LENGTH_SHORT).show();
-
+                            if(parentDbName.equals("Admins")){
+                            Toast.makeText(MainActivity.this, "Admin Logged In successfully", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
+
+                            Intent intent = new Intent(MainActivity.this, AdminCategoryActivity.class);
+                            startActivity(intent);
+                        }
+
+                        else if(parentDbName.equals("Users")){
+                            Toast.makeText(MainActivity.this, "Logged In successfully", Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
+
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(intent);
+                        }
+
                         } else {
                             loadingBar.dismiss();
                             Intent intent = new Intent(MainActivity.this, MainActivity.class);
