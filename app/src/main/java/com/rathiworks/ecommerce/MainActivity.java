@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 Intent intent = new Intent(MainActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
@@ -86,15 +83,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                Log.d("Does it exist", String.valueOf(snapshot.child(parentDbName).child(phone).exists()));
                 if (snapshot.child(parentDbName).child(phone).exists()) {
                     Users userData = snapshot.child(parentDbName).child(phone).getValue(Users.class);
 
-                    Log.d("phone number ok: ", String.valueOf(userData.getPhone().equals(phone)));
                     if (userData.getPhone().equals(phone)) {
-                        Log.d("password ok: ", String.valueOf(userData.getPassword().equals(password)));
+
                         if (userData.getPassword().equals(password)) {
-                            Log.d("Hi", " in for auth");
                             Toast.makeText(MainActivity.this, "Logged In successfully", Toast.LENGTH_SHORT).show();
 
                             loadingBar.dismiss();
