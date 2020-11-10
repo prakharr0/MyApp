@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginButton.setText("Log-In Admin");
                 adminPanelLink.setVisibility(View.INVISIBLE);
                 notAdminPanelLink.setVisibility(View.VISIBLE);
-
+                checkBoxRememberMe.setVisibility(View.INVISIBLE);
                 parentDbName = "Admins";
             }
         });
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginButton.setText("Log In!");
-
+                checkBoxRememberMe.setVisibility(View.VISIBLE);
                 adminPanelLink.setVisibility(View.VISIBLE);
                 notAdminPanelLink.setVisibility(View.INVISIBLE);
 
