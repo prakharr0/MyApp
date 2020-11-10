@@ -21,6 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rathiworks.ecommerce.Model.Users;
+import com.rathiworks.ecommerce.Prevalent.Prevalent;
+import com.rey.material.widget.CheckBox;
+
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,15 +34,21 @@ public class LoginActivity extends AppCompatActivity {
 
     private String parentDbName = "Users";
 
+    //for remember me
+    private CheckBox checkBoxRememberMe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        checkBoxRememberMe = (CheckBox) findViewById(R.id.remember_me_checkbox);
         loginButton = (Button) findViewById(R.id.loginactivity_login_button);
         phoneNumber = (EditText) findViewById(R.id.number_input);
         password = (EditText) findViewById(R.id.password_input);
         loadingBar = new ProgressDialog(this);
+
+        Paper.init(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +80,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void allowAccess(String phone, String password){
+
+        if(checkBoxRememberMe.isChecked()){
+            Paper.book().write(Prevalent.userPhoneKey, phone);
+            Paper.book().write(Prevalent.userPasswordKey, password);
+        }
+
         final DatabaseReference rootReference;
         rootReference = FirebaseDatabase.getInstance().getReference();
 
